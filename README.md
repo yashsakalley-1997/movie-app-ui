@@ -1,4 +1,4 @@
-# 🎬 Movie Explorer (TMDB)
+# 🎬 MovieVerse (TMDB)
 
 A responsive movie browsing app built with **React + TypeScript + Vite**, powered by **TMDB APIs**. Users can explore **trending movies of the week** and search across **movies, TV shows, and people**.
 
