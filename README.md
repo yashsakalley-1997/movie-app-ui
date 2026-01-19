@@ -1,73 +1,149 @@
-# React + TypeScript + Vite
+🎬 Movie Explorer (TMDB)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive movie browsing app built with React + TypeScript + Vite, powered by TMDB APIs.
+Users can explore trending movies of the week and search across movies, TV shows, and people.
 
-Currently, two official plugins are available:
+✅ Setup Instructions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This is a TypeScript-based Vite application.
 
-## React Compiler
+1) Clone the repository
+git clone <your-repo-url>
+cd <your-project-folder>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2) Install dependencies
+npm install
 
-## Expanding the ESLint configuration
+3) Add Environment Variables
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Create a .env file in the root folder.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Example:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+VITE_TMDB_BASE_URL=https://api.themoviedb.org/3
+VITE_TMDB_API_KEY=YOUR_TMDB_API_KEY
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+✅ The .env values will be shared separately via email.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+4) Start the development server
+npm run dev
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+
+App will run at:
+
+http://localhost:5173
+
+5) Build for production
+npm run build
+
+6) Preview production build
+npm run preview
+
+🎥 Chosen Movie API
+
+This project uses TMDB (The Movie Database) APIs.
+
+✅ Home Page (Trending Movies of the Week)
+
+Trending content for the current running week is fetched using:
+
+/trending/all/week?page=<page_number>
+
+✅ Search (Multi Search)
+
+Search functionality is implemented using:
+
+/search/multi?query=<search_text>
+
+🏗 Architecture Overview
+
+The application follows a clean and modular structure to keep the codebase readable and scalable.
+
+Main Layers
+
+Pages
+
+Top-level screens (ex: Home, Movie Detail)
+
+Responsible for layout + page-level logic
+
+Components
+
+Reusable UI blocks (MovieCard, MovieList, Filters, SearchInput, etc.)
+
+Services
+
+API layer responsible for calling TMDB endpoints
+
+Keeps API logic separate from UI code
+
+Utils / Helpers
+
+Helper functions for formatting, filtering, and mapping values
+
+Example: converting genre IDs into readable genre names
+
+Types
+
+TypeScript interfaces and types for consistent data handling
+
+Data Flow (High Level)
+
+UI Interaction → State Update → API Call (Service Layer) → Render Components
+
+🎨 UI / Design
+
+UI is built using Tailwind CSS
+
+Used shadcn/ui components for:
+
+Filters
+
+Input fields
+
+Buttons
+
+Home Page UX
+
+Displays Trending Movies for the current week
+
+Card-based UI for a clean browsing experience
+
+Search UX
+
+Search uses 500ms debouncing
+
+This prevents unnecessary API calls while the user is typing and improves performance
+
+🔑 Key Design Decisions / Assumptions
+✅ State Management
+
+Used React’s built-in useState for state management
+
+Reason: small app scope, keeps things simple and avoids introducing unnecessary complexity like Redux
+
+✅ Debounced Search
+
+Implemented 500ms debounce
+
+Reason: better user experience and reduces API request load
+
+✅ UI Component Choice
+
+Tailwind + shadcn was used for faster development and consistent UI patterns
+
+⚠️ Known Limitations
+
+No caching implemented (repeated requests may refetch the same data)
+
+/search/multi can return mixed entity types (movies, TV shows, and people)
+which may require extra filtering depending on future improvements
+
+Genre data from TMDB is ID-based and may require additional mapping logic for full coverage
+
+Error handling and loading states can be further improved for edge cases
+
+Pagination (if included) is basic and can be enhanced for a smoother browsing experience
+
+✅ Tech Stack: React • TypeScript • Vite • Tailwind CSS • shadcn/ui • TMDB API
